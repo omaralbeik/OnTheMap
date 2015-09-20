@@ -98,6 +98,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                     self.DismissKeyboard()
                     self.loginSpinner.stopAnimating()
                     self.loginButton.hidden = false
+                    // removing password, so when user signs out, he has to enter the password again (for security reasons)
+                    self.passwordTextField.text = ""
                     self.performSegueWithIdentifier("toTabVCSegue", sender: self)
                 })
             }

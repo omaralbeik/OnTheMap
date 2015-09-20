@@ -20,11 +20,24 @@ class ListVC: UIViewController {
     }
 
     @IBAction func logOutButtonTapped(sender: UIBarButtonItem) {
-
+        tableView.alpha = 0.3
+        logOutButton.enabled = false
+        Udacity.logout { (success, status) -> Void in
+            if success {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
+            } else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView.alpha = 1.0
+                    self.logOutButton.enabled = true
+                })
+            }
+        }
     }
     
     @IBAction func addLocationButtonTapped(sender: UIBarButtonItem) {
-        performSegueWithIdentifier("addFromListSegue", sender: self)
+        
     }
     
     @IBAction func refreshButtonTapped(sender: UIBarButtonItem) {

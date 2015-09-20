@@ -12,7 +12,7 @@ class Udacity {
     
     class func logIn(username: String, password: String, didComplete: (success: Bool, status: String?, userID: String?) -> Void) {
         
-        let request = NSMutableURLRequest(URL: NSURL(string: Constants.UdacityBaseLink + "session")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: Constants.UdacityBaseLink + UdacityMethodNames.Session)!)
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -45,6 +45,46 @@ class Udacity {
                 parsedResult = nil
                 print("Could not parse the data as JSON: '\(data)'")
                 didComplete(success: false, status: "Network Error Occurred", userID: nil)
+                return
+            }
+        }
+        task.resume()
+    }
+    
+    class func logout(didComplete: (success: Bool, status: String?) -> Void) {
+        
+        let request = NSMutableURLRequest(URL: NSURL(string: Constants.UdacityBaseLink + UdacityMethodNames.Session)!)
+        request.HTTPMethod = "DELETE"
+        var xsrfCookie: NSHTTPCookie? = nil
+        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        for cookie in sharedCookieStorage.cookies! as [NSHTTPCookie] {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil { // Handle error…
+                didComplete(success: false, status: "Network Error Occurred")
+            }
+            didComplete(success: true, status: nil)
+            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+            let parsedResult: AnyObject!
+            do {
+                parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
+                
+                guard let _ = parsedResult["session"] as? NSDictionary else {
+                    didComplete(success: false, status: parsedResult["error"]! as? String)
+                    return
+                }
+                didComplete(success: true, status: nil)
+                NSUserDefaults.standardUserDefaults().setObject("", forKey: "userID")
+                
+            } catch {
+                parsedResult = nil
+                didComplete(success: false, status: "Network Error Occurred")
+                print("Could not parse the data as JSON: '\(data)'")
                 return
             }
         }

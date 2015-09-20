@@ -431,7 +431,7 @@
                             <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yci-1G-E1Z">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem systemItem="stop" id="Qrh-HP-GaB">
+                                    <barButtonItem title=" Log Out" id="Qrh-HP-GaB">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="logOutButtonTapped:" destination="s4U-nf-TB0" id="krB-ni-XPX"/>
@@ -497,7 +497,7 @@
                             <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H4z-Yr-Zya">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem systemItem="stop" id="3iO-C1-REO">
+                                    <barButtonItem title=" Log Out" id="3iO-C1-REO">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="logOutButtonTapped:" destination="qbj-zk-3fD" id="rM3-GN-BFS"/>
@@ -681,6 +681,6 @@
         <image name="mapBarButton" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fxK-lo-aM8"/>
+        <segue reference="eWK-p1-5DY"/>
     </inferredMetricsTieBreakers>
 </document>
