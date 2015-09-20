@@ -78,13 +78,29 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         // check if username and password textfields are empty
         if usernameTextField.text?.isEmpty == true || passwordTextField.text?.isEmpty == true {
-            presentMessage("No Email & Password", message: "Please Enter Your Email and Password", action: "OK")
+            presentMessage("No Email and/or Password", message: "Please Enter Your Email and Password", action: "OK")
         }
         else {
             loginButton.hidden = true
             loginSpinner.startAnimating()
-            
-            // TODO: implement login
+                        
+            Udacity.logIn(usernameTextField.text!, password: passwordTextField.text!) { (success, status, userID) -> Void in
+                
+                if success == false {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.loginSpinner.stopAnimating()
+                        self.loginButton.hidden = false
+                        self.presentMessage("Error", message: status!, action: "OK")
+                    })
+                    return
+                }
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.DismissKeyboard()
+                    self.loginSpinner.stopAnimating()
+                    self.loginButton.hidden = false
+                    self.performSegueWithIdentifier("toTabVCSegue", sender: self)
+                })
+            }
             
         }
     }
