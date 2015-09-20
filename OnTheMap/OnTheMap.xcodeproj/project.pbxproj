@@ -25,6 +25,7 @@
 		078942A21BAEF224008E137A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 078942A01BAEF224008E137A /* LaunchScreen.storyboard */; };
 		078942AD1BAEF224008E137A /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078942AC1BAEF224008E137A /* OnTheMapTests.swift */; };
 		078942B81BAEF224008E137A /* OnTheMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078942B71BAEF224008E137A /* OnTheMapUITests.swift */; };
+		07D6D31F1BAF79A7005ECE2B /* CollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D6D31E1BAF79A7005ECE2B /* CollectionVC.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		078942B31BAEF224008E137A /* OnTheMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnTheMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		078942B71BAEF224008E137A /* OnTheMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapUITests.swift; sourceTree = "<group>"; };
 		078942B91BAEF224008E137A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07D6D31E1BAF79A7005ECE2B /* CollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +186,7 @@
 				070AEA7E1BAF332C00C09E29 /* URLVC.swift */,
 				075C6CD51BAF14B300CA7160 /* MapVC.swift */,
 				075C6CD71BAF14C000CA7160 /* ListVC.swift */,
+				07D6D31E1BAF79A7005ECE2B /* CollectionVC.swift */,
 				075C6CD91BAF150200CA7160 /* AddLocationVC.swift */,
 				075C6CDB1BAF151A00CA7160 /* ConfirmLocationVC.swift */,
 				075C6CDD1BAF155300CA7160 /* ShareLocationVC.swift */,
@@ -325,6 +328,7 @@
 				070AEA7B1BAF2FCE00C09E29 /* Parse.swift in Sources */,
 				070AEA7F1BAF332C00C09E29 /* URLVC.swift in Sources */,
 				070AEA791BAF23F500C09E29 /* Constants.swift in Sources */,
+				07D6D31F1BAF79A7005ECE2B /* CollectionVC.swift in Sources */,
 				075C6CD41BAF14A100CA7160 /* SignUpVC.swift in Sources */,
 				075C6CDA1BAF150200CA7160 /* AddLocationVC.swift in Sources */,
 				075C6CD21BAF149300CA7160 /* LoginVC.swift in Sources */,
