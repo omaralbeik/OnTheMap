@@ -22,6 +22,13 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // prepare locationsArray early for a faster user experience
+        Parse.getLocations { (success, status, locationsArray) -> Void in
+            if success {
+                locations = locationsArray!
+            }
+        }
+        
         // set text fields delegates
         usernameTextField.delegate = self
         passwordTextField.delegate = self

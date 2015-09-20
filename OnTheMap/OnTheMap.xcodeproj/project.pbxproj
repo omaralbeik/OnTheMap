@@ -10,6 +10,8 @@
 		070AEA741BAF232C00C09E29 /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070AEA731BAF232C00C09E29 /* StudentLocation.swift */; settings = {ASSET_TAGS = (); }; };
 		070AEA771BAF23CC00C09E29 /* Udacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070AEA761BAF23CC00C09E29 /* Udacity.swift */; settings = {ASSET_TAGS = (); }; };
 		070AEA791BAF23F500C09E29 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070AEA781BAF23F500C09E29 /* Constants.swift */; settings = {ASSET_TAGS = (); }; };
+		070AEA7B1BAF2FCE00C09E29 /* Parse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070AEA7A1BAF2FCE00C09E29 /* Parse.swift */; settings = {ASSET_TAGS = (); }; };
+		070AEA7F1BAF332C00C09E29 /* URLVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070AEA7E1BAF332C00C09E29 /* URLVC.swift */; settings = {ASSET_TAGS = (); }; };
 		075C6CD21BAF149300CA7160 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C6CD11BAF149300CA7160 /* LoginVC.swift */; settings = {ASSET_TAGS = (); }; };
 		075C6CD41BAF14A100CA7160 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C6CD31BAF14A100CA7160 /* SignUpVC.swift */; settings = {ASSET_TAGS = (); }; };
 		075C6CD61BAF14B300CA7160 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C6CD51BAF14B300CA7160 /* MapVC.swift */; settings = {ASSET_TAGS = (); }; };
@@ -46,6 +48,8 @@
 		070AEA731BAF232C00C09E29 /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
 		070AEA761BAF23CC00C09E29 /* Udacity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Udacity.swift; sourceTree = "<group>"; };
 		070AEA781BAF23F500C09E29 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		070AEA7A1BAF2FCE00C09E29 /* Parse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parse.swift; sourceTree = "<group>"; };
+		070AEA7E1BAF332C00C09E29 /* URLVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLVC.swift; sourceTree = "<group>"; };
 		075C6CD11BAF149300CA7160 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		075C6CD31BAF14A100CA7160 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		075C6CD51BAF14B300CA7160 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 			children = (
 				078942971BAEF224008E137A /* AppDelegate.swift */,
 				070AEA761BAF23CC00C09E29 /* Udacity.swift */,
+				070AEA7A1BAF2FCE00C09E29 /* Parse.swift */,
 				070AEA781BAF23F500C09E29 /* Constants.swift */,
 				070AEA751BAF235000C09E29 /* Model */,
 				078942C71BAEF310008E137A /* View Controllers */,
@@ -176,6 +181,7 @@
 			children = (
 				075C6CD11BAF149300CA7160 /* LoginVC.swift */,
 				075C6CD31BAF14A100CA7160 /* SignUpVC.swift */,
+				070AEA7E1BAF332C00C09E29 /* URLVC.swift */,
 				075C6CD51BAF14B300CA7160 /* MapVC.swift */,
 				075C6CD71BAF14C000CA7160 /* ListVC.swift */,
 				075C6CD91BAF150200CA7160 /* AddLocationVC.swift */,
@@ -316,6 +322,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				070AEA741BAF232C00C09E29 /* StudentLocation.swift in Sources */,
+				070AEA7B1BAF2FCE00C09E29 /* Parse.swift in Sources */,
+				070AEA7F1BAF332C00C09E29 /* URLVC.swift in Sources */,
 				070AEA791BAF23F500C09E29 /* Constants.swift in Sources */,
 				075C6CD41BAF14A100CA7160 /* SignUpVC.swift in Sources */,
 				075C6CDA1BAF150200CA7160 /* AddLocationVC.swift in Sources */,

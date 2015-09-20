@@ -8,17 +8,50 @@
 
 import UIKit
 
-class ListVC: UIViewController {
+class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var logOutButton: UIBarButtonItem!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        //set delegates
+        tableView.delegate = self
+        tableView.dataSource = self
     }
-
+    
+    //MARK: TableView
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return locations.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("TableCell", forIndexPath: indexPath)
+        let name = locations[indexPath.row].firstName! + " " + locations[indexPath.row].lastName!
+        cell.textLabel?.text = name
+        cell.detailTextLabel?.text = locations[indexPath.row].mapString!
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "toURLVCSegue" {
+            let urlVC = segue.destinationViewController as! URLVC
+            urlVC.urlString = locations[(tableView.indexPathForSelectedRow?.row)!].mediaURL!
+            
+        }
+    }
+    
+    
     @IBAction func logOutButtonTapped(sender: UIBarButtonItem) {
         tableView.alpha = 0.3
         logOutButton.enabled = false
@@ -42,5 +75,5 @@ class ListVC: UIViewController {
     
     @IBAction func refreshButtonTapped(sender: UIBarButtonItem) {
     }
-
+    
 }
