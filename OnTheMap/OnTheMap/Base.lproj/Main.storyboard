@@ -203,8 +203,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" red="1" green="0.69418446249999999" blue="0.080975327530000002" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Enter Your Location Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E17-HE-ny0">
-                                <rect key="frame" x="0.0" y="134" width="600" height="322"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Enter Your Location Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E17-HE-ny0">
+                                <rect key="frame" x="0.0" y="134" width="600" height="317"/>
                                 <color key="backgroundColor" red="0.99215686270000003" green="0.50588235290000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -238,8 +238,8 @@
                                 <color key="textColor" red="0.99215686270000003" green="0.50588235290000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="idM-YK-wk9">
-                                <rect key="frame" x="0.0" y="464" width="600" height="92"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="idM-YK-wk9">
+                                <rect key="frame" x="0.0" y="459" width="600" height="92"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="92" id="UdY-iF-Mc3"/>
                                 </constraints>
@@ -311,8 +311,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zAy-9I-JFO">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zOU-Aa-cJ7">
-                                        <rect key="frame" x="0.0" y="73" width="600" height="419"/>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zOU-Aa-cJ7">
+                                        <rect key="frame" x="0.0" y="73" width="600" height="414"/>
                                     </mapView>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.69418446249999999" blue="0.080975327530000002" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
@@ -330,8 +330,8 @@
                                 <color key="textColor" red="0.99215686270000003" green="0.50588235290000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmD-S8-zqB">
-                                <rect key="frame" x="0.0" y="487" width="600" height="69"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmD-S8-zqB">
+                                <rect key="frame" x="0.0" y="482" width="600" height="69"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="69" id="ZQg-g0-EDh"/>
                                 </constraints>
@@ -589,11 +589,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lhr-po-7sj">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhr-po-7sj">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Enter a link here to Share" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eW9-xs-YhT">
-                                        <rect key="frame" x="0.0" y="111" width="600" height="357"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Enter a link here to Share" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eW9-xs-YhT">
+                                        <rect key="frame" x="0.0" y="111" width="600" height="352"/>
                                         <color key="backgroundColor" red="0.99215686270000003" green="0.50588235290000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -625,8 +625,8 @@
                                 <color key="textColor" red="0.99215686270000003" green="0.50588235290000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0v9-NG-vPD">
-                                <rect key="frame" x="0.0" y="469" width="600" height="87"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0v9-NG-vPD">
+                                <rect key="frame" x="0.0" y="464" width="600" height="87"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="87" id="d7L-2O-vuJ"/>
                                 </constraints>
