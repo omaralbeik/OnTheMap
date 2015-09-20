@@ -78,8 +78,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="signUpButtonTapped:" destination="yt5-UK-ft4" eventType="touchUpInside" id="OmS-qD-dFt"/>
-                                    <segue destination="mrh-lM-eMB" kind="presentation" id="Noa-SB-M9U"/>
+                                    <segue destination="mrh-lM-eMB" kind="presentation" identifier="toSignUpVCSegue" id="Noa-SB-M9U"/>
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="KU4-ec-4Ws">
@@ -290,6 +289,7 @@
                     </view>
                     <connections>
                         <outlet property="locationStringTextField" destination="E17-HE-ny0" id="APg-MM-dLf"/>
+                        <segue destination="BK7-Xe-Gxi" kind="show" identifier="toConfirmMapVCSegue" id="GDY-lD-YCl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5uf-pv-UBL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -333,7 +333,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmD-S8-zqB">
                                 <rect key="frame" x="0.0" y="482" width="600" height="69"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="69" id="3gW-mt-hLo"/>
+                                    <constraint firstAttribute="height" constant="69" id="ZQg-g0-EDh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <state key="normal" title="Submit">
@@ -379,6 +379,7 @@
                     <connections>
                         <outlet property="locationStringLabel" destination="0Kf-cn-jMo" id="GZ7-tK-aI6"/>
                         <outlet property="mapView" destination="zOU-Aa-cJ7" id="Xql-Dp-bXO"/>
+                        <segue destination="AXq-b7-eok" kind="show" identifier="toShareLocationVCSegue" id="fxY-Sy-1Gc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xB2-AB-QFV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -623,7 +624,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0v9-NG-vPD">
                                 <rect key="frame" x="0.0" y="464" width="600" height="87"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="87" id="Plr-wB-YDG"/>
+                                    <constraint firstAttribute="height" constant="87" id="d7L-2O-vuJ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="28"/>
                                 <state key="normal" title="Submit">
@@ -680,6 +681,6 @@
         <image name="mapBarButton" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eWK-p1-5DY"/>
+        <segue reference="fxK-lo-aM8"/>
     </inferredMetricsTieBreakers>
 </document>

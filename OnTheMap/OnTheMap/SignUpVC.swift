@@ -31,12 +31,11 @@ class SignUpVC: UIViewController, UIWebViewDelegate {
         
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
             switch action.style{
+                
             case .Default:
                 self.webView.loadRequest(NSURLRequest(URL: self.url!))
-                
             case .Cancel:
                 self.webView.loadRequest(NSURLRequest(URL: self.url!))
-                
             case .Destructive:
                 self.webView.loadRequest(NSURLRequest(URL: self.url!))
                 
