@@ -5,10 +5,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--LoginVC-->
         <scene sceneID="aU2-0W-WKp">
             <objects>
-                <viewController id="yt5-UK-ft4" sceneMemberID="viewController">
+                <viewController id="yt5-UK-ft4" customClass="LoginVC" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vGk-wV-Q86"/>
                         <viewControllerLayoutGuide type="bottom" id="PvR-lK-Ofi"/>
@@ -41,7 +41,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="loginButtonTapped:" destination="yt5-UK-ft4" eventType="touchUpInside" id="IvV-Uu-9kY"/>
+                                    <action selector="loginButtonTapped:" destination="yt5-UK-ft4" eventType="touchUpInside" id="Snz-rZ-90g"/>
                                 </connections>
                             </button>
                             <textField clipsSubviews="YES" alpha="0.64999997615814209" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AFs-hN-Im1">
@@ -78,23 +78,14 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="signUpButtonTapped:" destination="yt5-UK-ft4" eventType="touchUpInside" id="HK8-QZ-yeJ"/>
-                                    <segue destination="mrh-lM-eMB" kind="show" identifier="toSignUpWebViewSegue" id="wkS-aF-2um">
-                                        <nil key="action"/>
-                                    </segue>
+                                    <action selector="signUpButtonTapped:" destination="yt5-UK-ft4" eventType="touchUpInside" id="OmS-qD-dFt"/>
+                                    <segue destination="mrh-lM-eMB" kind="presentation" id="Noa-SB-M9U"/>
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="KU4-ec-4Ws">
                                 <rect key="frame" x="290" y="344" width="20" height="20"/>
                                 <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ZY-0J-KcI">
-                                <rect key="frame" x="257" y="451" width="86" height="30"/>
-                                <state key="normal" title="get user info"/>
-                                <connections>
-                                    <action selector="getUserInfoButtonTapped:" destination="yt5-UK-ft4" eventType="touchUpInside" id="Lct-tc-B8l"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -110,13 +101,11 @@
                             <constraint firstItem="AFs-hN-Im1" firstAttribute="trailing" secondItem="cn0-pN-uHS" secondAttribute="trailingMargin" id="MMa-zF-2Ad"/>
                             <constraint firstItem="1bf-KO-vCO" firstAttribute="top" secondItem="qsY-NO-Kco" secondAttribute="bottom" constant="15" id="NMQ-9x-CyQ"/>
                             <constraint firstItem="qsY-NO-Kco" firstAttribute="leading" secondItem="cn0-pN-uHS" secondAttribute="leadingMargin" id="Tpo-lR-tK6"/>
-                            <constraint firstItem="5ZY-0J-KcI" firstAttribute="top" secondItem="tx3-yE-Ll2" secondAttribute="bottom" constant="31" id="W4i-Lz-CeI"/>
                             <constraint firstItem="KU4-ec-4Ws" firstAttribute="centerY" secondItem="1bf-KO-vCO" secondAttribute="centerY" constant="-0.5" id="Y5k-0P-5Eu"/>
                             <constraint firstItem="1bf-KO-vCO" firstAttribute="trailing" secondItem="cn0-pN-uHS" secondAttribute="trailingMargin" id="awo-YP-mSb"/>
                             <constraint firstItem="PvR-lK-Ofi" firstAttribute="top" secondItem="BKj-W5-GK8" secondAttribute="bottom" id="e6q-IL-6z3"/>
                             <constraint firstAttribute="centerY" secondItem="qsY-NO-Kco" secondAttribute="centerY" id="fqa-Qs-978"/>
                             <constraint firstAttribute="trailingMargin" secondItem="BKj-W5-GK8" secondAttribute="trailing" constant="-20" id="hdG-Rb-TVC"/>
-                            <constraint firstItem="5ZY-0J-KcI" firstAttribute="centerX" secondItem="cn0-pN-uHS" secondAttribute="centerX" id="iwj-A6-O8E"/>
                             <constraint firstItem="tx3-yE-Ll2" firstAttribute="top" secondItem="1bf-KO-vCO" secondAttribute="bottom" constant="16" id="kZR-Eu-5vx"/>
                             <constraint firstItem="BKj-W5-GK8" firstAttribute="leading" secondItem="cn0-pN-uHS" secondAttribute="leadingMargin" constant="-20" id="qIb-ae-iWo"/>
                             <constraint firstItem="tx3-yE-Ll2" firstAttribute="leading" secondItem="cn0-pN-uHS" secondAttribute="leadingMargin" id="qmt-fV-xbb"/>
@@ -125,10 +114,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="loginButton" destination="1bf-KO-vCO" id="OWA-ej-wmN"/>
-                        <outlet property="loginSpinner" destination="KU4-ec-4Ws" id="5Gk-lf-nCf"/>
-                        <outlet property="passwordTextField" destination="qsY-NO-Kco" id="cYy-bb-k9c"/>
-                        <outlet property="usernameTextField" destination="AFs-hN-Im1" id="hVc-Yo-soC"/>
+                        <outlet property="loginButton" destination="1bf-KO-vCO" id="b8l-ea-FHR"/>
+                        <outlet property="loginSpinner" destination="KU4-ec-4Ws" id="3su-PT-Osp"/>
+                        <outlet property="passwordTextField" destination="qsY-NO-Kco" id="oUO-Ug-TPJ"/>
+                        <outlet property="usernameTextField" destination="AFs-hN-Im1" id="86L-lt-eev"/>
                         <segue destination="E4K-yC-g7q" kind="show" identifier="toTabVCSegue" id="1BX-oK-pYO">
                             <nil key="action"/>
                         </segue>
@@ -138,10 +127,10 @@
             </objects>
             <point key="canvasLocation" x="-673" y="-262"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign UpVC-->
         <scene sceneID="zcw-6g-N7t">
             <objects>
-                <viewController id="mrh-lM-eMB" sceneMemberID="viewController">
+                <viewController id="mrh-lM-eMB" customClass="SignUpVC" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qmo-ke-QQA"/>
                         <viewControllerLayoutGuide type="bottom" id="ImL-tr-CnN"/>
@@ -160,14 +149,14 @@
                                     <barButtonItem systemItem="cancel" id="7bY-zA-fXw">
                                         <color key="tintColor" red="0.98431372549999996" green="0.34901960780000002" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <action selector="cancelButtonTapped:" destination="mrh-lM-eMB" id="nBF-wb-Zmz"/>
+                                            <action selector="cancelButtonTapped:" destination="mrh-lM-eMB" id="hvd-hK-faP"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="YdB-v6-Jye"/>
                                     <barButtonItem title="Open in Safari" id="sOy-XI-jC1">
                                         <color key="tintColor" red="0.98431372549999996" green="0.34901960780000002" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <action selector="openInSafariButtonTapped:" destination="mrh-lM-eMB" id="laV-op-CZV"/>
+                                            <action selector="openInSafariButtonTapped:" destination="mrh-lM-eMB" id="Gjh-Vd-aRO"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -191,18 +180,18 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="webView" destination="eb1-jn-lEj" id="923-E2-kSm"/>
-                        <outlet property="webspinner" destination="TcD-tp-Bo0" id="VX8-NS-T6X"/>
+                        <outlet property="webView" destination="eb1-jn-lEj" id="bGM-HG-pTF"/>
+                        <outlet property="webspinner" destination="TcD-tp-Bo0" id="Dl3-Uz-a5c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3r8-yZ-QKZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-673" y="474"/>
+            <point key="canvasLocation" x="-673" y="491"/>
         </scene>
-        <!--View Controller-->
+        <!--Add LocationVC-->
         <scene sceneID="pUJ-YH-Zrc">
             <objects>
-                <viewController id="2Ew-KT-JE1" sceneMemberID="viewController">
+                <viewController id="2Ew-KT-JE1" customClass="AddLocationVC" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MPu-YJ-1LN"/>
                         <viewControllerLayoutGuide type="bottom" id="eze-G1-42P"/>
@@ -260,7 +249,7 @@
                                     <color key="titleColor" red="0.98431372549999996" green="0.34901960780000002" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="findLocationButtonTapped:" destination="2Ew-KT-JE1" eventType="touchUpInside" id="elq-Sm-H5q"/>
+                                    <action selector="findLocationButtonTapped:" destination="2Ew-KT-JE1" eventType="touchUpInside" id="aB1-T5-Df7"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gs5-QN-slu">
@@ -273,7 +262,7 @@
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="cancelButtonTapped:" destination="2Ew-KT-JE1" eventType="touchUpInside" id="q4h-CH-TzM"/>
+                                    <action selector="cancelButtonTapped:" destination="2Ew-KT-JE1" eventType="touchUpInside" id="s5B-0v-ZL8"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -300,20 +289,17 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="locationStringTextField" destination="E17-HE-ny0" id="RlH-m7-GYN"/>
-                        <segue destination="BK7-Xe-Gxi" kind="show" identifier="toConfirmMapSegue" id="cIF-KP-2Sd">
-                            <nil key="action"/>
-                        </segue>
+                        <outlet property="locationStringTextField" destination="E17-HE-ny0" id="APg-MM-dLf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5uf-pv-UBL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1642" y="-262"/>
         </scene>
-        <!--View Controller-->
+        <!--Confirm LocationVC-->
         <scene sceneID="UUJ-mL-30X">
             <objects>
-                <viewController id="BK7-Xe-Gxi" sceneMemberID="viewController">
+                <viewController id="BK7-Xe-Gxi" customClass="ConfirmLocationVC" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aTM-zF-BnB"/>
                         <viewControllerLayoutGuide type="bottom" id="3Ri-gz-hwl"/>
@@ -354,7 +340,7 @@
                                     <color key="titleColor" red="0.99215686270000003" green="0.50588235290000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="submitLocationButtonTapped:" destination="BK7-Xe-Gxi" eventType="touchUpInside" id="BPD-OG-355"/>
+                                    <action selector="submitLocationButtonTapped:" destination="BK7-Xe-Gxi" eventType="touchUpInside" id="bJE-O8-1s1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQG-On-Vgq">
@@ -368,7 +354,7 @@
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="cancelButtonTapped:" destination="BK7-Xe-Gxi" eventType="touchUpInside" id="1LX-ef-wYw"/>
+                                    <action selector="cancelButtonTapped:" destination="BK7-Xe-Gxi" eventType="touchUpInside" id="juf-7L-jYX"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -391,11 +377,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="locationStringLabel" destination="0Kf-cn-jMo" id="mwo-O6-bNR"/>
-                        <outlet property="mapView" destination="zOU-Aa-cJ7" id="Lyq-Nn-XAU"/>
-                        <segue destination="AXq-b7-eok" kind="show" identifier="toShareSegue" id="F08-2L-rCk">
-                            <nil key="action"/>
-                        </segue>
+                        <outlet property="locationStringLabel" destination="0Kf-cn-jMo" id="GZ7-tK-aI6"/>
+                        <outlet property="mapView" destination="zOU-Aa-cJ7" id="Xql-Dp-bXO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xB2-AB-QFV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -405,7 +388,7 @@
         <!--List-->
         <scene sceneID="z4C-YO-EiP">
             <objects>
-                <viewController id="s4U-nf-TB0" sceneMemberID="viewController">
+                <viewController id="s4U-nf-TB0" customClass="ListVC" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JEn-Qi-Hwf"/>
                         <viewControllerLayoutGuide type="bottom" id="KU9-wZ-Nga"/>
@@ -450,21 +433,21 @@
                                     <barButtonItem systemItem="stop" id="Qrh-HP-GaB">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <action selector="logOutButtonTapped:" destination="s4U-nf-TB0" id="rwS-rU-74c"/>
+                                            <action selector="logOutButtonTapped:" destination="s4U-nf-TB0" id="krB-ni-XPX"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="P7P-A5-kzE"/>
                                     <barButtonItem systemItem="refresh" id="n5x-1F-F5f">
                                         <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <action selector="refreshButtonTapped:" destination="s4U-nf-TB0" id="Jls-uE-t3m"/>
+                                            <action selector="refreshButtonTapped:" destination="s4U-nf-TB0" id="ypb-l8-1W6"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="20" style="plain" systemItem="fixedSpace" id="aTy-gG-Qbm"/>
                                     <barButtonItem systemItem="add" id="e06-As-bq2">
                                         <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <action selector="addLocationButtonTapped:" destination="s4U-nf-TB0" id="UFo-VF-Beo"/>
+                                            <action selector="addLocationButtonTapped:" destination="s4U-nf-TB0" id="1NE-JR-u2K"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -484,8 +467,8 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="List" image="listBarButton" id="W1Z-Cf-cPf"/>
                     <connections>
-                        <outlet property="logOutButton" destination="Qrh-HP-GaB" id="F9M-p9-gSw"/>
-                        <outlet property="tableView" destination="Ll6-Ag-Bzj" id="tuN-6J-hGE"/>
+                        <outlet property="logOutButton" destination="Qrh-HP-GaB" id="Lqk-mN-nmr"/>
+                        <outlet property="tableView" destination="Ll6-Ag-Bzj" id="p24-X1-NgC"/>
                         <segue destination="2Ew-KT-JE1" kind="show" identifier="addFromListSegue" id="eWK-p1-5DY">
                             <nil key="action"/>
                         </segue>
@@ -498,7 +481,7 @@
         <!--Map-->
         <scene sceneID="gAn-fe-UWL">
             <objects>
-                <viewController id="qbj-zk-3fD" sceneMemberID="viewController">
+                <viewController id="qbj-zk-3fD" customClass="MapVC" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="E6B-QL-oKg"/>
                         <viewControllerLayoutGuide type="bottom" id="8hd-uk-sjh"/>
@@ -516,21 +499,21 @@
                                     <barButtonItem systemItem="stop" id="3iO-C1-REO">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <action selector="logOutButtonTapped:" destination="qbj-zk-3fD" id="k3K-nx-g27"/>
+                                            <action selector="logOutButtonTapped:" destination="qbj-zk-3fD" id="rM3-GN-BFS"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="If3-XB-nVd"/>
                                     <barButtonItem systemItem="refresh" id="sGN-H3-keL">
                                         <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <action selector="refreshButtonTapped:" destination="qbj-zk-3fD" id="Vfw-GC-mH5"/>
+                                            <action selector="refreshButtonTapped:" destination="qbj-zk-3fD" id="52v-0A-Smr"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="20" style="plain" systemItem="fixedSpace" id="oBx-lS-46Q"/>
                                     <barButtonItem systemItem="add" id="EfP-lq-i6u">
                                         <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <action selector="addLocationButtonTapped:" destination="qbj-zk-3fD" id="il2-TA-Eco"/>
+                                            <action selector="addLocationButtonTapped:" destination="qbj-zk-3fD" id="JXE-xO-Yze"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -558,9 +541,9 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="logOutButton" destination="3iO-C1-REO" id="MJx-K4-IEG"/>
-                        <outlet property="logOutSpinner" destination="B4q-zV-bco" id="Zlq-YF-RLV"/>
-                        <outlet property="mapView" destination="pae-7T-PDA" id="Ado-Tk-Djq"/>
+                        <outlet property="logOutButton" destination="3iO-C1-REO" id="T4T-ny-nhR"/>
+                        <outlet property="logOutSpinner" destination="B4q-zV-bco" id="gm0-al-z8F"/>
+                        <outlet property="mapView" destination="pae-7T-PDA" id="HSf-SC-gJW"/>
                         <segue destination="2Ew-KT-JE1" kind="show" identifier="addFromMapSegue" id="fxK-lo-aM8">
                             <nil key="action"/>
                         </segue>
@@ -581,18 +564,18 @@
                         <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="qbj-zk-3fD" kind="relationship" relationship="viewControllers" id="lgV-gv-ifk"/>
                         <segue destination="s4U-nf-TB0" kind="relationship" relationship="viewControllers" id="qFN-oW-4L4"/>
+                        <segue destination="qbj-zk-3fD" kind="relationship" relationship="viewControllers" id="5q1-SI-zxo"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d8D-pU-xEt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="32" y="-262"/>
         </scene>
-        <!--View Controller-->
+        <!--Share LocationVC-->
         <scene sceneID="tiC-Q7-8YN">
             <objects>
-                <viewController id="AXq-b7-eok" sceneMemberID="viewController">
+                <viewController id="AXq-b7-eok" customClass="ShareLocationVC" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nBm-Ne-KaI"/>
                         <viewControllerLayoutGuide type="bottom" id="PQn-Rh-WE0"/>
@@ -646,6 +629,9 @@
                                 <state key="normal" title="Submit">
                                     <color key="titleColor" red="0.99215686270000003" green="0.50588235290000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="submitButtonTapped:" destination="AXq-b7-eok" eventType="touchUpInside" id="BZT-n8-ggU"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1bB-4J-5Lu">
                                 <rect key="frame" x="521" y="20" width="79" height="34"/>
@@ -657,7 +643,7 @@
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="cancelButtonTapped:" destination="AXq-b7-eok" eventType="touchUpInside" id="ycj-n5-bzk"/>
+                                    <action selector="cancelButtonTapped:" destination="AXq-b7-eok" eventType="touchUpInside" id="aH6-kV-xAi"/>
                                 </connections>
                             </button>
                         </subviews>
