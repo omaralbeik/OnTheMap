@@ -44,7 +44,7 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if segue.identifier == "toURLVCSegue" {
+        if segue.identifier == "fromListToURLVCSegue" {
             let urlVC = segue.destinationViewController as! URLVC
             urlVC.urlString = locations[(tableView.indexPathForSelectedRow?.row)!].mediaURL!
             
@@ -74,6 +74,27 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     @IBAction func refreshButtonTapped(sender: UIBarButtonItem) {
+        updateLocations()
+    }
+    
+    func updateLocations() {
+        
+        self.tableView.alpha = 0.3
+        
+        Parse.getLocations { (success, status, locationsArray) -> Void in
+            if success {
+                let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+                dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                    
+                    locations = locationsArray!
+                }
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.tableView.alpha = 1
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
     
 }
