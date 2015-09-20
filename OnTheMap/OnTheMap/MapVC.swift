@@ -40,7 +40,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func addLocationButtonTapped(sender: UIBarButtonItem) {
-        
+
     }
     
     @IBAction func refreshButtonTapped(sender: UIBarButtonItem) {

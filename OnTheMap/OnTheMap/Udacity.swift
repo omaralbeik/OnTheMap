@@ -65,9 +65,12 @@ class Udacity {
         }
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
+            
+            guard (error == nil) else {
                 didComplete(success: false, status: "Network Error Occurred")
+                return
             }
+            
             didComplete(success: true, status: nil)
             let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
             let parsedResult: AnyObject!
@@ -79,7 +82,7 @@ class Udacity {
                     return
                 }
                 didComplete(success: true, status: nil)
-                NSUserDefaults.standardUserDefaults().setObject("", forKey: "userID")
+                NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "userID")
                 
             } catch {
                 parsedResult = nil
@@ -89,6 +92,52 @@ class Udacity {
             }
         }
         task.resume()
+    }
+    
+    class func getUserInfo(didComplete: (success: Bool, status: String?) -> Void) {
+        
+        if let userId = NSUserDefaults.standardUserDefaults().valueForKey("userID") as? String {
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: Constants.UdacityBaseLink + UdacityMethodNames.Users + userId)!)
+            let session = NSURLSession.sharedSession()
+            let task = session.dataTaskWithRequest(request) { data, response, error in
+                if error != nil { // Handle error...
+                    return
+                }
+                
+                guard (error == nil) else {
+                    print("There was an error with your request: \(error)")
+                    didComplete(success: false, status: "Network Error Occurred")
+                    return
+                }
+                
+                let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+                let parsedResult: AnyObject!
+                
+                do {
+                    parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
+                    
+                    guard let user = parsedResult["user"] as? NSDictionary else {
+                        print("Can't find user in: \(parsedResult)")
+                        didComplete(success: false, status: "Network Error Occurred")
+                        return
+                    }
+                    
+                    if let userLastName = user["last_name"] as? String {
+                        didComplete(success: true, status: nil)
+                        NSUserDefaults.standardUserDefaults().setObject(userLastName, forKey: "userLastName")
+                    }
+                    
+                } catch {
+                    parsedResult = nil
+                    print("Could not parse the data as JSON: '\(data)'")
+                    didComplete(success: false, status: "Network Error Occurred")
+                    return
+                }
+                print(NSString(data: newData, encoding: NSUTF8StringEncoding))
+            }
+            task.resume()
+        }
     }
     
     
