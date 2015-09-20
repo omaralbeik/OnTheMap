@@ -33,9 +33,9 @@ class MapVC: UIViewController, MKMapViewDelegate {
                 let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
                 dispatch_async(dispatch_get_global_queue(priority, 0)) {
                     
-                    locations = locationsArray!
+                    StudentLocation.locations = locationsArray!
                     
-                    for location in locations {
+                    for location in StudentLocation.locations {
                         
                         // Notice that the float values are being used to create CLLocationDegree values.
                         // This is a version of the Double type.
@@ -134,7 +134,6 @@ class MapVC: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func refreshButtonTapped(sender: UIBarButtonItem) {
-        
         annotations = []
         let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
         mapView.removeAnnotations( annotationsToRemove )

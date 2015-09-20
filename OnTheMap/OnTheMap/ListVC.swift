@@ -27,14 +27,14 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locations.count
+        return StudentLocation.locations.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TableCell", forIndexPath: indexPath)
-        let name = locations[indexPath.row].firstName! + " " + locations[indexPath.row].lastName!
+        let name = StudentLocation.locations[indexPath.row].firstName! + " " + StudentLocation.locations[indexPath.row].lastName!
         cell.textLabel?.text = name
-        cell.detailTextLabel?.text = locations[indexPath.row].mapString!
+        cell.detailTextLabel?.text = StudentLocation.locations[indexPath.row].mapString!
         
         return cell
     }
@@ -46,7 +46,7 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if segue.identifier == "fromListToURLVCSegue" {
             let urlVC = segue.destinationViewController as! URLVC
-            urlVC.urlString = locations[(tableView.indexPathForSelectedRow?.row)!].mediaURL!
+            urlVC.urlString = StudentLocation.locations[(tableView.indexPathForSelectedRow?.row)!].mediaURL!
             
         }
     }
@@ -86,7 +86,7 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
                 dispatch_async(dispatch_get_global_queue(priority, 0)) {
                     
-                    locations = locationsArray!
+                    StudentLocation.locations = locationsArray!
                 }
                 
                 dispatch_async(dispatch_get_main_queue()) {

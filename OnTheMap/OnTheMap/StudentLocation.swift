@@ -10,9 +10,10 @@ import Foundation
 
 //TODO: import NSDate from String using NSDateFormatter
 
-var locations: [StudentLocation] = []
-
 struct StudentLocation {
+    
+    // shared locations singleton
+    static var locations: [StudentLocation] = []
     
     var createdAt: String?
     var firstName: String?
