@@ -13,6 +13,8 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var logOutButton: UIBarButtonItem!
     
+    var editingOldLocaion = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,7 +49,10 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if segue.identifier == "fromListToURLVCSegue" {
             let urlVC = segue.destinationViewController as! URLVC
             urlVC.urlString = StudentLocation.locations[(tableView.indexPathForSelectedRow?.row)!].mediaURL!
-            
+        }
+        if segue.identifier == "addFromListSegue" {
+            let addLocationVC = segue.destinationViewController as? AddLocationVC
+            addLocationVC?.editingOldLocaion = self.editingOldLocaion
         }
     }
     
@@ -70,6 +75,37 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     @IBAction func addLocationButtonTapped(sender: UIBarButtonItem) {
+        
+        if let userLastName = NSUserDefaults.standardUserDefaults().valueForKey("userLastName") as? String {
+            Parse.checkIfLocationAlreadyAdded(userLastName, didComplete: { (found, studentLocation) -> Void in
+                
+                if found {
+                    if let student = studentLocation {
+                        self.editingOldLocaion = true
+                        let alert = UIAlertController(title: "Location & URL Already shared", message: "You shared (\(student.mediaURL!)) from (\(student.mapString!)) before, Do you want to Edit your location & URL ?", preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction(title: "Canel", style: UIAlertActionStyle.Cancel, handler: nil))
+                        alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.performSegueWithIdentifier("addFromListSegue", sender: self)
+                            })
+                            print("user already shared a location")
+                        }))
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.presentViewController(alert, animated: true, completion: nil)
+                        })
+                    }
+                    
+                } else {
+                    // User didn't share a location before
+                    self.editingOldLocaion = false
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.performSegueWithIdentifier("addFromListSegue", sender: self)
+                    })
+                    print("user didn't share a location before")
+                }
+                
+            })
+        }
         
     }
     

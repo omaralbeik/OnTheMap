@@ -34,7 +34,7 @@ class URLVC: UIViewController, UIWebViewDelegate {
             webView.loadRequest(NSURLRequest(URL: url))
         } else {
             dispatch_async(dispatch_get_main_queue(), {
-                self.presentMessage("No Valid Link", message: "\(self.urlString) is not a vaild link!", action: "OK")
+                presentMessage(self, title: "No Valid Link", message: "\(self.urlString) is not a vaild link!", action: "OK")
             })
         }
     }
@@ -53,19 +53,8 @@ class URLVC: UIViewController, UIWebViewDelegate {
             UIApplication.sharedApplication().openURL(url)
         }  else {
             dispatch_async(dispatch_get_main_queue(), {
-                self.presentMessage("No Valid Link", message: "\(self.urlString) is not a vaild link!", action: "OK")
+                presentMessage(self, title: "No Valid Link", message: "\(self.urlString) is not a vaild link!", action: "OK")
             })
         }
     }
-    
-    //MARK: Present a message helper method:
-    func presentMessage(title: String, message: String, action: String) {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: action, style: .Default, handler: { action in
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }))
-        presentViewController(alert, animated: true, completion: nil)
-    }
-    
 }

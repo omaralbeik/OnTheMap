@@ -22,7 +22,7 @@ class Udacity {
         let task = session.dataTaskWithRequest(request) { (data, response, error) in
             
             guard (error == nil) else {
-                didComplete(success: false, status: "Network Error Occurred", userID: nil)
+                didComplete(success: false, status: error!.localizedDescription, userID: nil)
                 return
             }
             
@@ -39,7 +39,7 @@ class Udacity {
                 
                 let userID = account["key"] as? String
                 didComplete(success: true, status: nil, userID: userID)
-                NSUserDefaults.standardUserDefaults().setObject(userID, forKey: "userID")
+                NSUserDefaults.standardUserDefaults().setObject(userID!, forKey: "userID")
                 
             } catch {
                 parsedResult = nil
@@ -67,7 +67,7 @@ class Udacity {
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
             guard (error == nil) else {
-                didComplete(success: false, status: "Network Error Occurred")
+                didComplete(success: false, status: error!.localizedDescription)
                 return
             }
             
@@ -94,7 +94,7 @@ class Udacity {
         task.resume()
     }
     
-    class func getUserInfo(didComplete: (success: Bool, status: String?) -> Void) {
+    class func getUserInfo(didComplete: (success: Bool, status: String?, userLastName: String?) -> Void) {
         
         if let userId = NSUserDefaults.standardUserDefaults().valueForKey("userID") as? String {
             
@@ -106,8 +106,8 @@ class Udacity {
                 }
                 
                 guard (error == nil) else {
-                    print("There was an error with your request: \(error)")
-                    didComplete(success: false, status: "Network Error Occurred")
+                    print(error!.localizedDescription)
+                    didComplete(success: false, status: error!.localizedDescription, userLastName: nil)
                     return
                 }
                 
@@ -119,22 +119,20 @@ class Udacity {
                     
                     guard let user = parsedResult["user"] as? NSDictionary else {
                         print("Can't find user in: \(parsedResult)")
-                        didComplete(success: false, status: "Network Error Occurred")
+                        didComplete(success: false, status: "Network Error Occurred", userLastName: nil)
                         return
                     }
                     
                     if let userLastName = user["last_name"] as? String {
-                        didComplete(success: true, status: nil)
-                        NSUserDefaults.standardUserDefaults().setObject(userLastName, forKey: "userLastName")
+                        didComplete(success: true, status: nil, userLastName: userLastName)
                     }
                     
                 } catch {
                     parsedResult = nil
                     print("Could not parse the data as JSON: '\(data)'")
-                    didComplete(success: false, status: "Network Error Occurred")
+                    didComplete(success: false, status: "Network Error Occurred", userLastName: nil)
                     return
                 }
-                print(NSString(data: newData, encoding: NSUTF8StringEncoding))
             }
             task.resume()
         }

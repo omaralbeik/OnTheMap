@@ -39,6 +39,7 @@ struct StudentLocation {
         updatedAt = dictionary["updatedAt"] as? String
     }
     
+    
     // Helper: Given an array of dictionaries, convert them to an array of StudentLocation objects
     static func locationsFromResults(results: [[String : AnyObject]]) -> [StudentLocation] {
         var locations = [StudentLocation]()

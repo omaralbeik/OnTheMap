@@ -14,7 +14,7 @@ class SignUpVC: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var webspinner: UIActivityIndicatorView!
     
     let url = NSURL (string: "https://www.udacity.com/account/auth#!/signup")
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         webView.delegate = self
@@ -25,25 +25,12 @@ class SignUpVC: UIViewController, UIWebViewDelegate {
     }
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        self.webspinner.stopAnimating()
-        
-        let alert = UIAlertController(title: "No Internet!", message: "Can not Connect to The Inernet, Please Try Again", preferredStyle: UIAlertControllerStyle.Alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
-            switch action.style{
-                
-            case .Default:
-                self.webView.loadRequest(NSURLRequest(URL: self.url!))
-            case .Cancel:
-                self.webView.loadRequest(NSURLRequest(URL: self.url!))
-            case .Destructive:
-                self.webView.loadRequest(NSURLRequest(URL: self.url!))
-                
-            }
-        }))
-        
-        self.presentViewController(alert, animated: true, completion: nil)
-        
+        webspinner.stopAnimating()
+        presentMessage(self, title: "Error", message: "\(error!.localizedDescription)", action: "OK")
+    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        webspinner.stopAnimating()
     }
     
     @IBAction func cancelButtonTapped(sender: UIBarButtonItem) {
@@ -53,7 +40,5 @@ class SignUpVC: UIViewController, UIWebViewDelegate {
     @IBAction func openInSafariButtonTapped(sender: UIBarButtonItem) {
         UIApplication.sharedApplication().openURL(self.url!)
     }
-
-
-
+    
 }

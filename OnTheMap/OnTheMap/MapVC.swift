@@ -11,6 +11,9 @@ import MapKit
 
 class MapVC: UIViewController, MKMapViewDelegate {
     
+    var editingOldLocaion = false
+    var oldLocation: StudentLocation?
+    
     @IBOutlet weak var logOutSpinner: UIActivityIndicatorView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var logOutButton: UIBarButtonItem!
@@ -63,11 +66,11 @@ class MapVC: UIViewController, MKMapViewDelegate {
                         self.mapView.alpha = 1
                         self.logOutSpinner.stopAnimating()
                         self.mapView.addAnnotations(self.annotations)
-
+                        
                         
                     }
                 }
-
+                
             }
         }
         
@@ -108,6 +111,13 @@ class MapVC: UIViewController, MKMapViewDelegate {
             let urlVC = segue.destinationViewController as! URLVC
             urlVC.urlString = (mapView.selectedAnnotations.first?.subtitle!)!
         }
+        if segue.identifier == "addFromMapSegue" {
+            let addLocationVC = segue.destinationViewController as? AddLocationVC
+            addLocationVC?.editingOldLocaion = self.editingOldLocaion
+            if editingOldLocaion {
+                addLocationVC?.oldLocation = self.oldLocation
+            }
+        }
     }
     
     @IBAction func logOutButtonTapped(sender: UIBarButtonItem) {
@@ -131,6 +141,37 @@ class MapVC: UIViewController, MKMapViewDelegate {
     
     @IBAction func addLocationButtonTapped(sender: UIBarButtonItem) {
         
+        if let userLastName = NSUserDefaults.standardUserDefaults().valueForKey("userLastName") as? String {
+            Parse.checkIfLocationAlreadyAdded(userLastName, didComplete: { (found, studentLocation) -> Void in
+                
+                if found {
+                    if let student = studentLocation {
+                        self.oldLocation = student
+                        self.editingOldLocaion = true
+                        let alert = UIAlertController(title: "Location & URL Already shared", message: "You shared (\(student.mediaURL!)) from (\(student.mapString!)) before, Do you want to Edit your location & URL ?", preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction(title: "Canel", style: UIAlertActionStyle.Cancel, handler: nil))
+                        alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.performSegueWithIdentifier("addFromMapSegue", sender: self)
+                            })
+                            print("user already shared a location")
+                        }))
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.presentViewController(alert, animated: true, completion: nil)
+                        })
+                    }
+                    
+                } else {
+                    // User didn't share a location before
+                    self.editingOldLocaion = false
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.performSegueWithIdentifier("addFromMapSegue", sender: self)
+                    })
+                    print("user didn't share a location before")
+                }
+                
+            })
+        }
     }
     
     @IBAction func refreshButtonTapped(sender: UIBarButtonItem) {

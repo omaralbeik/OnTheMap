@@ -47,7 +47,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         if usernameTextField.isFirstResponder() {
             // check if email contains '@' and '.' chracters:
             if (usernameTextField.text!.rangeOfString("@") == nil || usernameTextField.text!.rangeOfString(".") == nil) {
-                presentMessage("Invalid Email Address", message: "\(usernameTextField.text!) is Not A Valid Email Address", action: "Try Again")
+                presentMessage(self, title: "Invalid Email Address", message: "\(usernameTextField.text!) is Not A Valid Email Address", action: "Try Again")
             } else {
                 passwordTextField.becomeFirstResponder()
             }
@@ -64,47 +64,69 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
     
-    
-    //MARK: Present a message helper method:
-    func presentMessage(title: String, message: String, action: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: action, style: UIAlertActionStyle.Default, handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    
     // MARK: Login
     @IBAction func loginButtonTapped(sender: UIButton) {
         
+        view.endEditing(true)
+        
         // check if username and password textfields are empty
         if usernameTextField.text?.isEmpty == true || passwordTextField.text?.isEmpty == true {
-            presentMessage("No Email and/or Password", message: "Please Enter Your Email and Password", action: "OK")
+            presentMessage(self, title: "No Email and/or Password", message: "Please Enter Your Email and Password", action: "OK")
         }
         else {
-            loginButton.hidden = true
-            loginSpinner.startAnimating()
-                        
-            Udacity.logIn(usernameTextField.text!, password: passwordTextField.text!) { (success, status, userID) -> Void in
+            
+            if Reachability.isConnectedToNetwork() {
                 
-                if success == false {
+                loginButton.hidden = true
+                loginSpinner.startAnimating()
+                
+                Udacity.logIn(usernameTextField.text!, password: passwordTextField.text!) { (success, status, userID) -> Void in
+                    
+                    if !success {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.loginSpinner.stopAnimating()
+                            self.loginButton.hidden = false
+                            presentMessage(self, title: "Error", message: status!, action: "OK")
+                        })
+                        return
+                    }
+                    print("Login successful: \(userID!)")
+                    
+                    Udacity.getUserInfo({ (success, status, userLastName) -> Void in
+                        if success {
+                            print("User last name fetched: \(userLastName!)")
+                            NSUserDefaults.standardUserDefaults().setObject(userLastName!, forKey: "userLastName")
+                        }
+                    })
+                    
                     dispatch_async(dispatch_get_main_queue(), {
+                        self.DismissKeyboard()
                         self.loginSpinner.stopAnimating()
                         self.loginButton.hidden = false
-                        self.presentMessage("Error", message: status!, action: "OK")
+                        // removing password, so when user signs out, he has to enter the password again (for security reasons)
+                        self.passwordTextField.text = ""
+                        self.performSegueWithIdentifier("toTabVCSegue", sender: self)
                     })
-                    return
                 }
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.DismissKeyboard()
-                    self.loginSpinner.stopAnimating()
-                    self.loginButton.hidden = false
-                    // removing password, so when user signs out, he has to enter the password again (for security reasons)
-                    self.passwordTextField.text = ""
-                    self.performSegueWithIdentifier("toTabVCSegue", sender: self)
-                })
+                
+            } else {
+                presentMessage(self, title: "No Internet", message: "Your Device is not connected to the internet! Connect and try again", action: "OK")
             }
+            
+            
             
         }
     }
     
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
+        if identifier == "toSignUpVCSegue" {
+            
+            if !Reachability.isConnectedToNetwork() {
+                presentMessage(self, title: "No Internet", message: "Your Device is not connected to the internet! Connect and try again", action: "OK")
+                return false
+            }
+        }
+        // by default, transition
+        return true
+    }
 }
