@@ -10,7 +10,8 @@ import Foundation
 
 class Udacity {
     
-    class func logIn(username: String, password: String, didComplete: (success: Bool, status: String?, userID: String?) -> Void) {
+    //MARK: login
+    class func login(username: String, password: String, didComplete: (success: Bool, status: String?, userID: String?) -> Void) {
         
         let request = NSMutableURLRequest(URL: NSURL(string: Constants.UdacityBaseLink + UdacityMethodNames.Session)!)
         request.HTTPMethod = "POST"
@@ -20,14 +21,11 @@ class Udacity {
         
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { (data, response, error) in
-            
             guard (error == nil) else {
                 didComplete(success: false, status: error!.localizedDescription, userID: nil)
                 return
             }
-            
             let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
-            
             let parsedResult: AnyObject!
             do {
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
@@ -36,10 +34,11 @@ class Udacity {
                     didComplete(success: false, status: parsedResult["error"]! as? String, userID: nil)
                     return
                 }
-                
                 let userID = account["key"] as? String
                 didComplete(success: true, status: nil, userID: userID)
-                NSUserDefaults.standardUserDefaults().setObject(userID!, forKey: "userID")
+                
+                // save userID for faster use later in application
+                userDefaults.setObject(userID!, forKey: "userID")
                 
             } catch {
                 parsedResult = nil
@@ -51,6 +50,8 @@ class Udacity {
         task.resume()
     }
     
+    
+    //MARK: logout
     class func logout(didComplete: (success: Bool, status: String?) -> Void) {
         
         let request = NSMutableURLRequest(URL: NSURL(string: Constants.UdacityBaseLink + UdacityMethodNames.Session)!)
@@ -82,7 +83,9 @@ class Udacity {
                     return
                 }
                 didComplete(success: true, status: nil)
-                NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "userID")
+                
+                // delete userID from offline storage (security feature)
+                userDefaults.setObject(nil, forKey: "userID")
                 
             } catch {
                 parsedResult = nil
@@ -94,20 +97,19 @@ class Udacity {
         task.resume()
     }
     
-    class func getUserInfo(didComplete: (success: Bool, status: String?, userLastName: String?) -> Void) {
+    
+    // getUserLastName
+    class func getUserName(didComplete: (success: Bool, status: String?, userFirstName: String?, userLastName: String?) -> Void) {
         
         if let userId = NSUserDefaults.standardUserDefaults().valueForKey("userID") as? String {
             
             let request = NSMutableURLRequest(URL: NSURL(string: Constants.UdacityBaseLink + UdacityMethodNames.Users + userId)!)
             let session = NSURLSession.sharedSession()
             let task = session.dataTaskWithRequest(request) { data, response, error in
-                if error != nil { // Handle error...
-                    return
-                }
                 
                 guard (error == nil) else {
                     print(error!.localizedDescription)
-                    didComplete(success: false, status: error!.localizedDescription, userLastName: nil)
+                    didComplete(success: false, status: error!.localizedDescription, userFirstName: nil, userLastName: nil)
                     return
                 }
                 
@@ -119,18 +121,20 @@ class Udacity {
                     
                     guard let user = parsedResult["user"] as? NSDictionary else {
                         print("Can't find user in: \(parsedResult)")
-                        didComplete(success: false, status: "Network Error Occurred", userLastName: nil)
+                        didComplete(success: false, status: "Network Error Occurred", userFirstName: nil, userLastName: nil)
                         return
                     }
                     
                     if let userLastName = user["last_name"] as? String {
-                        didComplete(success: true, status: nil, userLastName: userLastName)
+                        if let userFirstName = user["first_name"] as? String {
+                            didComplete(success: true, status: nil, userFirstName: userFirstName, userLastName: userLastName)
+                        }
                     }
                     
                 } catch {
                     parsedResult = nil
                     print("Could not parse the data as JSON: '\(data)'")
-                    didComplete(success: false, status: "Network Error Occurred", userLastName: nil)
+                    didComplete(success: false, status: "Network Error Occurred", userFirstName: nil, userLastName: nil)
                     return
                 }
             }

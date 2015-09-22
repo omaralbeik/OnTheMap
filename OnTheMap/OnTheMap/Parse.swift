@@ -10,9 +10,10 @@ import Foundation
 
 class Parse {
     
+    //MARK: getLocations
     class func getLocations(didComplete: (success: Bool, status: String?, locationsArray: [StudentLocation]?) -> Void) {
         
-        let request = NSMutableURLRequest(URL: NSURL(string: Constants.ParseBaseLink + ParseMethodNames.StudentLocation + "?limit=\(Constants.ResultsLimit)")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: Constants.ParseBaseLink + ParseMethodNames.StudentLocation + "?limit=\(Constants.ParseResultsLimit)")!)
         request.addValue(Constants.ParseApplicationID, forHTTPHeaderField: ParseHTTPHeaders.ParseApplicationID)
         request.addValue(Constants.RESTAPIKey, forHTTPHeaderField: ParseHTTPHeaders.RESTAPIKey)
         let session = NSURLSession.sharedSession()
@@ -47,6 +48,7 @@ class Parse {
     }
     
     
+    //MARK: addLocation
     class func addLocation(user: StudentLocation, didComplete: (success: Bool, status: String?) -> Void) {
         
         let request = NSMutableURLRequest(URL: NSURL(string: Constants.ParseBaseLink + ParseMethodNames.StudentLocation)!)
@@ -54,31 +56,25 @@ class Parse {
         request.addValue(Constants.ParseApplicationID, forHTTPHeaderField: ParseHTTPHeaders.ParseApplicationID)
         request.addValue(Constants.RESTAPIKey, forHTTPHeaderField: ParseHTTPHeaders.RESTAPIKey)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        request.HTTPBody = "{\"\(ParseJSONBodyKeys.UniqueKey)\": \"\(user.uniqueKey!)\", \"\(ParseJSONBodyKeys.FirstName)\": \"\(user.firstName!)\", \"\(ParseJSONBodyKeys.LastName)\": \"\(user.lastName!)\",\"\(ParseJSONBodyKeys.MapString)\": \"\(user.mapString!)\", \"\(ParseJSONBodyKeys.MediaURL)\": \"\(user.mediaURL!)\",\"\(ParseJSONBodyKeys.Latitude)\": \(user.latitude!), \"\(ParseJSONBodyKeys.Longitude)\": \(user.longitude)}".dataUsingEncoding(NSUTF8StringEncoding)
+        request.HTTPBody = "{\"uniqueKey\": \"\(user.uniqueKey!)\", \"firstName\": \"\(user.firstName!)\", \"lastName\": \"\(user.lastName!)\",\"mapString\": \"\(user.mapString!)\", \"mediaURL\": \"\(user.mediaURL!)\",\"latitude\": \(user.latitude!), \"longitude\": \(user.longitude!)}".dataUsingEncoding(NSUTF8StringEncoding)
         
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            
             guard (error == nil) else {
                 print(error!.localizedDescription)
                 didComplete(success: false, status: error!.localizedDescription)
                 return
             }
-            
             let parsedResult: AnyObject!
             do {
-                
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
-                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 
-                guard let objectId = parsedResult["objectId"] as? [[String : AnyObject]] else {
+                guard let _ = parsedResult["objectId"] as? [[String : AnyObject]] else {
                     print("Can't find objectId in \(parsedResult!)")
                     didComplete(success: false, status: "Couldn't find Results")
                     return
                 }
                 
-                print(objectId)
                 didComplete(success: true, status: nil)
                 
             }  catch {
@@ -91,7 +87,7 @@ class Parse {
         task.resume()
     }
     
-    
+    //MARK: queryLocation
     class func queryLocation(uniqueKey: String, didComplete: (success: Bool, status: String?, location: StudentLocation?) -> Void) {
         
         let urlString = Constants.ParseBaseLink + ParseMethodNames.StudentLocation + "?where=%7B%22uniqueKey%22%3A%22" + uniqueKey + "%22%7D"
@@ -107,9 +103,7 @@ class Parse {
                 didComplete(success: false, status: error!.localizedDescription, location: nil)
                 return
             }
-            
             let parsedResult: AnyObject!
-            
             do {
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
                 print(NSString(data: data!, encoding: NSUTF8StringEncoding))
@@ -119,10 +113,8 @@ class Parse {
                     didComplete(success: false, status: "Couldn't find Results", location: nil)
                     return
                 }
-                let studentLocation = StudentLocation.locationsFromResults(results)[0]
+                let studentLocation = StudentLocation.locationsFromResults(results).first
                 didComplete(success: true, status: nil, location: studentLocation)
-                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-                
                 
             } catch {
                 parsedResult = nil
@@ -135,6 +127,7 @@ class Parse {
     }
     
     
+    //MARK: updateStudentLocation
     class func updateStudentLocation (old: StudentLocation, new: StudentLocation, didComplete:(success: Bool, status: String?) -> Void) {
         
         let urlString = Constants.ParseBaseLink + ParseMethodNames.StudentLocation + "/\(old.objectId!)"
@@ -145,8 +138,12 @@ class Parse {
         request.addValue(Constants.RESTAPIKey, forHTTPHeaderField: ParseHTTPHeaders.RESTAPIKey)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        request.HTTPBody = "{\"\(ParseJSONBodyKeys.UniqueKey)\": \"\(old.uniqueKey!)\", \"\(ParseJSONBodyKeys.FirstName)\": \"\(old.firstName!)\", \"\(ParseJSONBodyKeys.LastName)\": \"\(old.lastName!)\",\"\(ParseJSONBodyKeys.MapString)\": \"\(new.mapString!)\", \"\(ParseJSONBodyKeys.MediaURL)\": \"\(new.mediaURL!)\",\"\(ParseJSONBodyKeys.Latitude)\": \(new.latitude!), \"\(ParseJSONBodyKeys.Longitude)\": \(new.longitude)}".dataUsingEncoding(NSUTF8StringEncoding)
+        request.HTTPBody = "{\"uniqueKey\": \"\(old.uniqueKey!)\", \"firstName\": \"\(new.firstName!)\", \"lastName\": \"\(new.lastName!)\",\"mapString\": \"\(new.mapString!)\", \"mediaURL\": \"\(new.mediaURL!)\",\"latitude\": \(new.latitude!), \"longitude\": \(new.longitude!)}".dataUsingEncoding(NSUTF8StringEncoding)
         
+        //
+        //        request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Cupertino, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.322998, \"longitude\": -122.032182}".dataUsingEncoding(NSUTF8StringEncoding)
+        //
+        //
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
@@ -158,17 +155,15 @@ class Parse {
             
             let parsedResult: AnyObject!
             do {
-                
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
                 print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 
-                guard let updatedAt = parsedResult["updatedAt"] as? String else {
+                guard let _ = parsedResult["updatedAt"] as? String else {
                     print("Can't find updatedAt in \(parsedResult!)")
                     didComplete(success: false, status: "Couldn't find Results")
                     return
                 }
                 
-                print(updatedAt)
                 didComplete(success: true, status: nil)
                 
             }  catch {
@@ -182,12 +177,15 @@ class Parse {
         
     }
     
+    //MARK: checkIfLocationAlreadyAdded
     class func checkIfLocationAlreadyAdded(lastName: String, didComplete: (found: Bool, studentLocation: StudentLocation?) -> Void) {
         
         getLocations { (success, status, locationsArray) -> Void in
             if success {
                 if let locations = locationsArray {
+                    
                     var found = false
+                    
                     for location in locations {
                         if location.lastName! == lastName {
                             didComplete(found: true, studentLocation: location)
@@ -200,7 +198,6 @@ class Parse {
                 }
             }
         }
-        
     }
     
     

@@ -19,13 +19,24 @@ class ShareLocationVC: UIViewController, UITextFieldDelegate {
     var longitude: Double = 0.0
     var urlString = ""
     var oldLocation: StudentLocation?
+    var newLocation: StudentLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        newLocation = oldLocation
+        
+        newLocation?.mapString = self.locationString
+        newLocation?.latitude = self.latitude
+        newLocation?.longitude = self.longitude
+        
+        // set textfield delegate
         urlStringTextField.delegate = self
         
-        print("editing old location  \(editingOldLocaion)")
+        // set text fields style
+        let emailPaddingView = UITextField(frame: CGRectMake(0, 0, 30, 0))
+        urlStringTextField.leftView = emailPaddingView
+        urlStringTextField.leftViewMode = UITextFieldViewMode.Always
         
         //Looks for single or multiple taps to dismiss keyboard:
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
@@ -52,13 +63,55 @@ class ShareLocationVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func submitButtonTapped(sender: UIButton) {
         
-//        if editingOldLocaion {
-//           Parse.updateStudentLocation(<#T##old: StudentLocation##StudentLocation#>, new: <#T##StudentLocation#>, didComplete: <#T##(success: Bool, status: String?) -> Void#>)
-//        } else {
-//            Parse.addLocation(<#T##user: StudentLocation##StudentLocation#>, didComplete: <#T##(success: Bool, status: String?) -> Void#>)
-//        }
-//        
-//        
+        newLocation?.mediaURL! = urlStringTextField.text!
+        
+        if editingOldLocaion {
+            Parse.updateStudentLocation(oldLocation!, new: newLocation!, didComplete: { (success, status) -> Void in
+                if success {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.storyboard?.instantiateViewControllerWithIdentifier("tabBarVC")
+//                        presentMessage(self, title: "Location Updated", message: "Your location and URL updated", action: "OK")
+                    })
+                    
+                }
+            })
+        } else {
+            
+            if let firstName = userDefaults.valueForKey("userFirstName") as? String {
+                if let lastName = userDefaults.valueForKey("userLastName") as? String {
+                    if let userID = userDefaults.valueForKey("userID") as? String {
+                        
+                        let locationDict: [String : AnyObject] = [
+                            "createdAt" : "",
+                            "firstName" : firstName,
+                            "lastName"  : lastName,
+                            "latitude"  : 1.0,
+                            "longitude" : 1.0,
+                            "mapString" : urlString,
+                            "mediaURL"  : urlString,
+                            "objectId"  : "",
+                            "uniqueKey" : userID,
+                            "updatedAt" : ""
+                        ]
+                        
+                        let locations = StudentLocation.locationsFromResults([locationDict])
+                        
+                        Parse.addLocation(locations.first!, didComplete: { (success, status) -> Void in
+                            if success {
+                                print("success")
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.storyboard?.instantiateViewControllerWithIdentifier("tabBarVC")
+                                    presentMessage(self, title: "Location Added", message: "Your location and URL has been added", action: "OK")
+                                })
+                                
+                            }
+                        })
+                    }
+                }
+            }
+        }
+        
+        
     }
     
     //MARK: DismissKeyboard method:

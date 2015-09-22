@@ -14,6 +14,7 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var logOutButton: UIBarButtonItem!
     
     var editingOldLocaion = false
+    var oldLocation: StudentLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +28,11 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return StudentLocation.locations.count
     }
     
+    //MARK: TableViewDataSource
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TableCell", forIndexPath: indexPath)
         let name = StudentLocation.locations[indexPath.row].firstName! + " " + StudentLocation.locations[indexPath.row].lastName!
@@ -41,22 +42,8 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == "fromListToURLVCSegue" {
-            let urlVC = segue.destinationViewController as! URLVC
-            urlVC.urlString = StudentLocation.locations[(tableView.indexPathForSelectedRow?.row)!].mediaURL!
-        }
-        if segue.identifier == "addFromListSegue" {
-            let addLocationVC = segue.destinationViewController as? AddLocationVC
-            addLocationVC?.editingOldLocaion = self.editingOldLocaion
-        }
-    }
-    
-    
+    //MARK: logOutButtonTapped
     @IBAction func logOutButtonTapped(sender: UIBarButtonItem) {
         tableView.alpha = 0.3
         logOutButton.enabled = false
@@ -74,6 +61,8 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    
+    //MARK: addLocationButtonTapped
     @IBAction func addLocationButtonTapped(sender: UIBarButtonItem) {
         
         if let userLastName = NSUserDefaults.standardUserDefaults().valueForKey("userLastName") as? String {
@@ -81,6 +70,7 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
                 if found {
                     if let student = studentLocation {
+                        self.oldLocation = student
                         self.editingOldLocaion = true
                         let alert = UIAlertController(title: "Location & URL Already shared", message: "You shared (\(student.mediaURL!)) from (\(student.mapString!)) before, Do you want to Edit your location & URL ?", preferredStyle: UIAlertControllerStyle.Alert)
                         alert.addAction(UIAlertAction(title: "Canel", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -88,7 +78,6 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.performSegueWithIdentifier("addFromListSegue", sender: self)
                             })
-                            print("user already shared a location")
                         }))
                         dispatch_async(dispatch_get_main_queue(), {
                             self.presentViewController(alert, animated: true, completion: nil)
@@ -101,18 +90,20 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     dispatch_async(dispatch_get_main_queue(), {
                         self.performSegueWithIdentifier("addFromListSegue", sender: self)
                     })
-                    print("user didn't share a location before")
                 }
                 
             })
         }
-        
     }
     
+    
+    //MARK: refreshButtonTapped
     @IBAction func refreshButtonTapped(sender: UIBarButtonItem) {
         updateLocations()
     }
     
+    
+    //MARK: helper methode to update table
     func updateLocations() {
         
         self.tableView.alpha = 0.3
@@ -130,6 +121,20 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.tableView.reloadData()
                 }
             }
+        }
+    }
+    
+    
+    //MARK: prepareForSegue
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "fromListToURLVCSegue" {
+            let urlVC = segue.destinationViewController as! URLVC
+            urlVC.urlString = StudentLocation.locations[(tableView.indexPathForSelectedRow?.row)!].mediaURL!
+        }
+        if segue.identifier == "addFromListSegue" {
+            let addLocationVC = segue.destinationViewController as? AddLocationVC
+            addLocationVC?.editingOldLocaion = self.editingOldLocaion
+            addLocationVC?.oldLocation = self.oldLocation
         }
     }
     

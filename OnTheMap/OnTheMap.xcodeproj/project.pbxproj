@@ -27,7 +27,7 @@
 		078942B81BAEF224008E137A /* OnTheMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078942B71BAEF224008E137A /* OnTheMapUITests.swift */; };
 		07A3B8A31BAFF8750076BA29 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A3B8A21BAFF8750076BA29 /* Reachability.swift */; settings = {ASSET_TAGS = (); }; };
 		07A3B8A51BAFF9470076BA29 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A3B8A41BAFF9470076BA29 /* SystemConfiguration.framework */; };
-		07A3B8A91BB003820076BA29 /* PresentMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A3B8A81BB003820076BA29 /* PresentMessage.swift */; settings = {ASSET_TAGS = (); }; };
+		07A3B8A91BB003820076BA29 /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A3B8A81BB003820076BA29 /* Misc.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +74,7 @@
 		078942B91BAEF224008E137A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07A3B8A21BAFF8750076BA29 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		07A3B8A41BAFF9470076BA29 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		07A3B8A81BB003820076BA29 /* PresentMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentMessage.swift; path = ../PresentMessage.swift; sourceTree = "<group>"; };
+		07A3B8A81BB003820076BA29 /* Misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Misc.swift; path = ../Misc.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				078942971BAEF224008E137A /* AppDelegate.swift */,
-				07A3B8A81BB003820076BA29 /* PresentMessage.swift */,
+				07A3B8A81BB003820076BA29 /* Misc.swift */,
 				07A3B8A21BAFF8750076BA29 /* Reachability.swift */,
 				07A3B8A41BAFF9470076BA29 /* SystemConfiguration.framework */,
 				0789429E1BAEF224008E137A /* Assets.xcassets */,
@@ -335,7 +335,7 @@
 				070AEA7B1BAF2FCE00C09E29 /* Parse.swift in Sources */,
 				070AEA7F1BAF332C00C09E29 /* URLVC.swift in Sources */,
 				070AEA791BAF23F500C09E29 /* Constants.swift in Sources */,
-				07A3B8A91BB003820076BA29 /* PresentMessage.swift in Sources */,
+				07A3B8A91BB003820076BA29 /* Misc.swift in Sources */,
 				075C6CD41BAF14A100CA7160 /* SignUpVC.swift in Sources */,
 				075C6CDA1BAF150200CA7160 /* AddLocationVC.swift in Sources */,
 				075C6CD21BAF149300CA7160 /* LoginVC.swift in Sources */,

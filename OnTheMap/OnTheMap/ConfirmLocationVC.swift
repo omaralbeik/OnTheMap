@@ -49,13 +49,25 @@ class ConfirmLocationVC: UIViewController, MKMapViewDelegate {
             }
         })
         
-        print("editing old location  \(editingOldLocaion)")
-        
         //Looks for single or multiple taps to dismiss keyboard:
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         view.addGestureRecognizer(tap)
     }
     
+    
+    //MARK: submitLocationButtonTapped
+    @IBAction func submitLocationButtonTapped(sender: UIButton) {
+        performSegueWithIdentifier("toShareLocationVCSegue", sender: self)
+    }
+    
+    
+    //MARK: cancelButtonTapped
+    @IBAction func cancelButtonTapped(sender: UIButton) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    //MARK: prepareForSegue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toShareLocationVCSegue" {
             let shareLocationVC = segue.destinationViewController as! ShareLocationVC
@@ -63,16 +75,10 @@ class ConfirmLocationVC: UIViewController, MKMapViewDelegate {
             shareLocationVC.locationString = self.locationString
             shareLocationVC.latitude = self.latitude
             shareLocationVC.longitude = self.longitude
+            shareLocationVC.oldLocation = self.oldLocation
         }
     }
     
-    @IBAction func submitLocationButtonTapped(sender: UIButton) {
-        performSegueWithIdentifier("toShareLocationVCSegue", sender: self)
-    }
-    
-    @IBAction func cancelButtonTapped(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
     
     //MARK: DismissKeyboard method:
     func DismissKeyboard(){

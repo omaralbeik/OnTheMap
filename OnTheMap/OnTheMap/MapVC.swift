@@ -106,20 +106,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "fromMapToURLVCSegue" {
-            let urlVC = segue.destinationViewController as! URLVC
-            urlVC.urlString = (mapView.selectedAnnotations.first?.subtitle!)!
-        }
-        if segue.identifier == "addFromMapSegue" {
-            let addLocationVC = segue.destinationViewController as? AddLocationVC
-            addLocationVC?.editingOldLocaion = self.editingOldLocaion
-            if editingOldLocaion {
-                addLocationVC?.oldLocation = self.oldLocation
-            }
-        }
-    }
-    
+    //MARK: logOutButtonTapped
     @IBAction func logOutButtonTapped(sender: UIBarButtonItem) {
         mapView.alpha = 0.3
         logOutButton.enabled = false
@@ -139,9 +126,10 @@ class MapVC: UIViewController, MKMapViewDelegate {
         }
     }
     
+    //MARK: addLocationButtonTapped
     @IBAction func addLocationButtonTapped(sender: UIBarButtonItem) {
         
-        if let userLastName = NSUserDefaults.standardUserDefaults().valueForKey("userLastName") as? String {
+        if let userLastName = userDefaults.valueForKey("userLastName") as? String {
             Parse.checkIfLocationAlreadyAdded(userLastName, didComplete: { (found, studentLocation) -> Void in
                 
                 if found {
@@ -154,7 +142,6 @@ class MapVC: UIViewController, MKMapViewDelegate {
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.performSegueWithIdentifier("addFromMapSegue", sender: self)
                             })
-                            print("user already shared a location")
                         }))
                         dispatch_async(dispatch_get_main_queue(), {
                             self.presentViewController(alert, animated: true, completion: nil)
@@ -167,13 +154,13 @@ class MapVC: UIViewController, MKMapViewDelegate {
                     dispatch_async(dispatch_get_main_queue(), {
                         self.performSegueWithIdentifier("addFromMapSegue", sender: self)
                     })
-                    print("user didn't share a location before")
                 }
                 
             })
         }
     }
     
+    //MARK: refreshButtonTapped
     @IBAction func refreshButtonTapped(sender: UIBarButtonItem) {
         annotations = []
         let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
@@ -181,4 +168,16 @@ class MapVC: UIViewController, MKMapViewDelegate {
         addAnnotations()
     }
     
+    //MARK: prepareForSegue
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "fromMapToURLVCSegue" {
+            let urlVC = segue.destinationViewController as! URLVC
+            urlVC.urlString = (mapView.selectedAnnotations.first?.subtitle!)!
+        }
+        if segue.identifier == "addFromMapSegue" {
+            let addLocationVC = segue.destinationViewController as? AddLocationVC
+            addLocationVC?.editingOldLocaion = self.editingOldLocaion
+            addLocationVC?.oldLocation = self.oldLocation
+        }
+    }
 }

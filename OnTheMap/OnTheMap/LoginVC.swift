@@ -69,7 +69,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         view.endEditing(true)
         
-        // check if username and password textfields are empty
+        // check if username and password text fields are empty
         if usernameTextField.text?.isEmpty == true || passwordTextField.text?.isEmpty == true {
             presentMessage(self, title: "No Email and/or Password", message: "Please Enter Your Email and Password", action: "OK")
         }
@@ -80,7 +80,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                 loginButton.hidden = true
                 loginSpinner.startAnimating()
                 
-                Udacity.logIn(usernameTextField.text!, password: passwordTextField.text!) { (success, status, userID) -> Void in
+                Udacity.login(usernameTextField.text!, password: passwordTextField.text!) { (success, status, userID) -> Void in
                     
                     if !success {
                         dispatch_async(dispatch_get_main_queue(), {
@@ -90,21 +90,23 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                         })
                         return
                     }
-                    print("Login successful: \(userID!)")
                     
-                    Udacity.getUserInfo({ (success, status, userLastName) -> Void in
+                    // fetching user's last name for later use
+                    Udacity.getUserName({ (success, status, userFirstName, userLastName) -> Void in
                         if success {
-                            print("User last name fetched: \(userLastName!)")
-                            NSUserDefaults.standardUserDefaults().setObject(userLastName!, forKey: "userLastName")
+                            // save user's last name offline for later use
+                            userDefaults.setObject(userLastName!, forKey: "userLastName")
+                            userDefaults.setObject(userFirstName!, forKey: "userFirstName")
                         }
                     })
+                    // removing password from password text field, so when user signs out, he has to enter the password again (for security reasons)
+                    self.passwordTextField.text = ""
                     
                     dispatch_async(dispatch_get_main_queue(), {
                         self.DismissKeyboard()
                         self.loginSpinner.stopAnimating()
                         self.loginButton.hidden = false
-                        // removing password, so when user signs out, he has to enter the password again (for security reasons)
-                        self.passwordTextField.text = ""
+                        
                         self.performSegueWithIdentifier("toTabVCSegue", sender: self)
                     })
                 }
@@ -118,6 +120,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // prevent segue to map if no network
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
         if identifier == "toSignUpVCSegue" {
             
