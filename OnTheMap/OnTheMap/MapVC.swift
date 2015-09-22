@@ -71,6 +71,12 @@ class MapVC: UIViewController, MKMapViewDelegate {
                     }
                 }
                 
+            } else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    presentMessage(self, title: "Error", message: status!, action: "OK")
+                    self.mapView.alpha = 1
+                    self.logOutSpinner.stopAnimating()
+                })
             }
         }
         

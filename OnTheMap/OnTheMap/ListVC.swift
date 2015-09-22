@@ -41,8 +41,8 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //MARK: TableViewDataSource
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        // sorting the array based on date created locations:
-        let sortedLocationsArray = StudentLocation.locations.sort({$1.createdAt > $0.createdAt })
+        // sorting the array based on date locations updated:
+        let sortedLocationsArray = StudentLocation.locations.sort({$1.updatedAt > $0.updatedAt })
         
         let cell = tableView.dequeueReusableCellWithIdentifier("TableCell", forIndexPath: indexPath)
         let name = sortedLocationsArray[indexPath.row].firstName! + " " + sortedLocationsArray[indexPath.row].lastName!
@@ -135,6 +135,11 @@ class ListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.tableView.alpha = 1
                     self.tableView.reloadData()
                 }
+            }  else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    presentMessage(self, title: "Error", message: status!, action: "OK")
+                    self.tableView.alpha = 1
+                })
             }
         }
     }

@@ -264,6 +264,9 @@
                                     <action selector="cancelButtonTapped:" destination="2Ew-KT-JE1" eventType="touchUpInside" id="s5B-0v-ZL8"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Oz9-2S-f5t">
+                                <rect key="frame" x="282" y="281.5" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -277,6 +280,7 @@
                             <constraint firstItem="gs5-QN-slu" firstAttribute="trailing" secondItem="jMJ-gY-Dir" secondAttribute="trailingMargin" constant="20" id="OyV-ol-D23"/>
                             <constraint firstItem="bP2-4T-9nZ" firstAttribute="leading" secondItem="jMJ-gY-Dir" secondAttribute="leadingMargin" constant="-20" id="R5V-xg-gca"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bP2-4T-9nZ" secondAttribute="trailing" constant="-20" id="TEe-AA-9Db"/>
+                            <constraint firstItem="Oz9-2S-f5t" firstAttribute="centerX" secondItem="jMJ-gY-Dir" secondAttribute="centerX" id="Uvv-Tu-Qpz"/>
                             <constraint firstItem="qhb-BD-Yqh" firstAttribute="top" secondItem="bP2-4T-9nZ" secondAttribute="bottom" constant="-21" id="Ypb-jt-cIw"/>
                             <constraint firstItem="qhb-BD-Yqh" firstAttribute="leading" secondItem="jMJ-gY-Dir" secondAttribute="leadingMargin" constant="-20" id="bSQ-R1-st1"/>
                             <constraint firstItem="E17-HE-ny0" firstAttribute="leading" secondItem="jMJ-gY-Dir" secondAttribute="leadingMargin" constant="-20" id="brP-mN-Cip"/>
@@ -284,10 +288,12 @@
                             <constraint firstAttribute="trailingMargin" secondItem="idM-YK-wk9" secondAttribute="trailing" constant="-20" id="gv2-PT-bmK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="E17-HE-ny0" secondAttribute="trailing" constant="-20" id="i7G-s4-yhA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qhb-BD-Yqh" secondAttribute="trailing" constant="-20" id="ig2-Wk-gs3"/>
+                            <constraint firstItem="Oz9-2S-f5t" firstAttribute="centerY" secondItem="jMJ-gY-Dir" secondAttribute="centerY" id="jIM-n7-reC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="wt4-gD-ZEQ" secondAttribute="trailing" constant="-20" id="u2u-s4-9a1"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="geoLoactionSpinner" destination="Oz9-2S-f5t" id="bUj-A7-2hG"/>
                         <outlet property="locationStringTextField" destination="E17-HE-ny0" id="APg-MM-dLf"/>
                         <outlet property="submitLocationButton" destination="idM-YK-wk9" id="eVC-RR-ngx"/>
                         <segue destination="BK7-Xe-Gxi" kind="show" identifier="toConfirmMapVCSegue" id="GDY-lD-YCl"/>
@@ -312,9 +318,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zAy-9I-JFO">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zOU-Aa-cJ7">
-                                        <rect key="frame" x="0.0" y="73" width="600" height="414"/>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zOU-Aa-cJ7">
+                                        <rect key="frame" x="0.0" y="73" width="600" height="463"/>
                                     </mapView>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ZPm-5L-cQj">
+                                        <rect key="frame" x="282" y="281.5" width="37" height="37"/>
+                                        <color key="color" red="0.98431372549999996" green="0.34901960780000002" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.69418446249999999" blue="0.080975327530000002" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -331,8 +341,8 @@
                                 <color key="textColor" red="0.99215686270000003" green="0.50588235290000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmD-S8-zqB">
-                                <rect key="frame" x="0.0" y="482" width="600" height="69"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmD-S8-zqB">
+                                <rect key="frame" x="0.0" y="531" width="600" height="69"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="69" id="EJn-6p-rNf"/>
                                 </constraints>
@@ -368,8 +378,10 @@
                             <constraint firstItem="zAy-9I-JFO" firstAttribute="leading" secondItem="rKt-oU-EFF" secondAttribute="leadingMargin" constant="-20" id="Lex-hq-Ycq"/>
                             <constraint firstItem="0Kf-cn-jMo" firstAttribute="top" secondItem="aTM-zF-BnB" secondAttribute="bottom" constant="6" id="Mwv-wv-Aut"/>
                             <constraint firstItem="JQG-On-Vgq" firstAttribute="trailing" secondItem="rKt-oU-EFF" secondAttribute="trailingMargin" constant="20" id="WBz-SM-dXu"/>
+                            <constraint firstItem="ZPm-5L-cQj" firstAttribute="centerY" secondItem="rKt-oU-EFF" secondAttribute="centerY" id="ZO9-He-QaX"/>
                             <constraint firstItem="zAy-9I-JFO" firstAttribute="bottom" secondItem="rKt-oU-EFF" secondAttribute="bottomMargin" id="dWt-oJ-ris"/>
                             <constraint firstItem="wmD-S8-zqB" firstAttribute="leading" secondItem="0Kf-cn-jMo" secondAttribute="leading" id="dYE-Lt-6ZP"/>
+                            <constraint firstItem="ZPm-5L-cQj" firstAttribute="centerX" secondItem="rKt-oU-EFF" secondAttribute="centerX" id="fwl-Iv-jMZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="zAy-9I-JFO" secondAttribute="trailing" constant="-20" id="kYK-71-LP8"/>
                             <constraint firstItem="wmD-S8-zqB" firstAttribute="top" secondItem="zOU-Aa-cJ7" secondAttribute="bottom" constant="-5" id="nKF-Rv-2G5"/>
                             <constraint firstItem="0Kf-cn-jMo" firstAttribute="leading" secondItem="rKt-oU-EFF" secondAttribute="leadingMargin" constant="-20" id="tk9-JP-z4M"/>
@@ -379,6 +391,7 @@
                     </view>
                     <connections>
                         <outlet property="locationStringLabel" destination="0Kf-cn-jMo" id="GZ7-tK-aI6"/>
+                        <outlet property="mapSpinner" destination="ZPm-5L-cQj" id="8bk-ER-6a4"/>
                         <outlet property="mapView" destination="zOU-Aa-cJ7" id="Xql-Dp-bXO"/>
                         <segue destination="AXq-b7-eok" kind="show" identifier="toShareLocationVCSegue" id="fxY-Sy-1Gc"/>
                     </connections>

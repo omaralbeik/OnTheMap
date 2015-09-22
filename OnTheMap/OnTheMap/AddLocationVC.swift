@@ -13,6 +13,9 @@ class AddLocationVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var submitLocationButton: UIButton!
     @IBOutlet weak var locationStringTextField: UITextField!
     
+    @IBOutlet weak var geoLoactionSpinner: UIActivityIndicatorView!
+    
+    
     var editingOldLocation = false
     var oldLocation: StudentLocation?
     
@@ -41,10 +44,15 @@ class AddLocationVC: UIViewController, UITextFieldDelegate {
     
     //MARK: findLocationButtonTapped
     @IBAction func findLocationButtonTapped(sender: UIButton) {
+        
+        geoLoactionSpinner.startAnimating()
+        
         if locationStringTextField.text?.isEmpty == true {
             presentMessage(self, title: "No Location", message: "No location, Please enter your location and try again!", action: "OK")
+            geoLoactionSpinner.stopAnimating()
         } else {
             performSegueWithIdentifier("toConfirmMapVCSegue", sender: self)
+            geoLoactionSpinner.stopAnimating()
         }
     }
     
