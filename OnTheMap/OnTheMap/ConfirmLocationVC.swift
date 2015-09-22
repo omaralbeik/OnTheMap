@@ -14,7 +14,7 @@ class ConfirmLocationVC: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var locationStringLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     
-    var editingOldLocaion = false
+    var editingOldLocation = false
     var locationString = ""
     let geocoder = CLGeocoder()
     var oldLocation: StudentLocation?
@@ -71,7 +71,7 @@ class ConfirmLocationVC: UIViewController, MKMapViewDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toShareLocationVCSegue" {
             let shareLocationVC = segue.destinationViewController as! ShareLocationVC
-            shareLocationVC.editingOldLocaion = self.editingOldLocaion
+            shareLocationVC.editingOldLocation = self.editingOldLocation
             shareLocationVC.locationString = self.locationString
             shareLocationVC.latitude = self.latitude
             shareLocationVC.longitude = self.longitude

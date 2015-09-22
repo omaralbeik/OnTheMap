@@ -11,7 +11,7 @@ import MapKit
 
 class MapVC: UIViewController, MKMapViewDelegate {
     
-    var editingOldLocaion = false
+    var editingOldLocation = false
     var oldLocation: StudentLocation?
     
     @IBOutlet weak var logOutSpinner: UIActivityIndicatorView!
@@ -135,7 +135,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
                 if found {
                     if let student = studentLocation {
                         self.oldLocation = student
-                        self.editingOldLocaion = true
+                        self.editingOldLocation = true
                         let alert = UIAlertController(title: "Location & URL Already shared", message: "You shared (\(student.mediaURL!)) from (\(student.mapString!)) before, Do you want to Edit your location & URL ?", preferredStyle: UIAlertControllerStyle.Alert)
                         alert.addAction(UIAlertAction(title: "Canel", style: UIAlertActionStyle.Cancel, handler: nil))
                         alert.addAction(UIAlertAction(title: "Override", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
@@ -150,7 +150,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
                     
                 } else {
                     // User didn't share a location before
-                    self.editingOldLocaion = false
+                    self.editingOldLocation = false
                     dispatch_async(dispatch_get_main_queue(), {
                         self.performSegueWithIdentifier("addFromMapSegue", sender: self)
                     })
@@ -162,10 +162,15 @@ class MapVC: UIViewController, MKMapViewDelegate {
     
     //MARK: refreshButtonTapped
     @IBAction func refreshButtonTapped(sender: UIBarButtonItem) {
-        annotations = []
-        let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
-        mapView.removeAnnotations( annotationsToRemove )
-        addAnnotations()
+        if Reachability.isConnectedToNetwork() {
+            annotations = []
+            let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
+            mapView.removeAnnotations( annotationsToRemove )
+            addAnnotations()
+        } else {
+            presentMessage(self, title: "No Internet", message: "Your Device is not connected to the internet! Connect and try again", action: "OK")
+        }
+        
     }
     
     //MARK: prepareForSegue
@@ -176,7 +181,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
         }
         if segue.identifier == "addFromMapSegue" {
             let addLocationVC = segue.destinationViewController as? AddLocationVC
-            addLocationVC?.editingOldLocaion = self.editingOldLocaion
+            addLocationVC?.editingOldLocation = self.editingOldLocation
             addLocationVC?.oldLocation = self.oldLocation
         }
     }

@@ -13,7 +13,7 @@ class AddLocationVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var submitLocationButton: UIButton!
     @IBOutlet weak var locationStringTextField: UITextField!
     
-    var editingOldLocaion = false
+    var editingOldLocation = false
     var oldLocation: StudentLocation?
     
     override func viewDidLoad() {
@@ -60,7 +60,7 @@ class AddLocationVC: UIViewController, UITextFieldDelegate {
             let confirmLocationVC = segue.destinationViewController as! ConfirmLocationVC
             
             if locationStringTextField.text?.isEmpty == false {
-                confirmLocationVC.editingOldLocaion = self.editingOldLocaion
+                confirmLocationVC.editingOldLocation = self.editingOldLocation
                 confirmLocationVC.locationString = locationStringTextField.text!
                 confirmLocationVC.oldLocation = self.oldLocation
             } else {
