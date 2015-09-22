@@ -69,8 +69,9 @@ class ShareLocationVC: UIViewController, UITextFieldDelegate {
             Parse.updateStudentLocation(oldLocation!, new: newLocation!, didComplete: { (success, status) -> Void in
                 if success {
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.storyboard?.instantiateViewControllerWithIdentifier("tabBarVC")
-//                        presentMessage(self, title: "Location Updated", message: "Your location and URL updated", action: "OK")
+                        self.performSegueWithIdentifier("backToListVCSegue", sender: self)
+//                            presentMessage(self, title: "Location Updated", message: "Your location and URL updated", action: "OK")
+                        
                     })
                     
                 }
@@ -100,8 +101,9 @@ class ShareLocationVC: UIViewController, UITextFieldDelegate {
                             if success {
                                 print("success")
                                 dispatch_async(dispatch_get_main_queue(), {
-                                    self.storyboard?.instantiateViewControllerWithIdentifier("tabBarVC")
-                                    presentMessage(self, title: "Location Added", message: "Your location and URL has been added", action: "OK")
+                                    self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                                        self.dismissViewControllerAnimated(true, completion: nil)
+                                    })
                                 })
                                 
                             }
